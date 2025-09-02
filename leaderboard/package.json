@@ -1,0 +1,15 @@
+{
+  "name": "leaderboard",
+  "version": "1.0.0",
+  "description": "leaderboard scripts",
+  "license": "ISC",
+  "author": "me",
+  "type": "commonjs",
+  "main": "leaderboard/tracks.js",
+  "scripts": {
+    "run": "node leaderboard/tracks.js"
+  },
+  "dependencies": {
+    "cli-progress": "^3.12.0"
+  }
+}
