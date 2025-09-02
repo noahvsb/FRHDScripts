@@ -1,0 +1,8 @@
+.idea/
+.draft/
+.trash/
+
+node_modules/
+package-lock.json
+
+track.txt
