@@ -101,7 +101,7 @@ const username = process.argv[2];
 const minPlays = Number(process.argv[3] ?? NaN);
 const maxPlacement = Number(process.argv[4] ?? NaN);
 if (!username) {
-  console.error("Usage: node script.js <username> <minPlays (optional)> <maxPlacement (optional)>");
+  console.error("Usage: npm run tracks <username> <minPlays (optional)> <maxPlacement (optional)>");
   process.exit(1);
 }
 if (!Number.isNaN(minPlays) && (!Number.isInteger(minPlays) || minPlays < 0)) {
@@ -116,8 +116,11 @@ if (!Number.isNaN(maxPlacement) && (!Number.isInteger(maxPlacement) || maxPlacem
 const trackIds = [...rangeArray(1001, 11106), /*...rangeArray(50001, 1010000)*/];
 
 fetchInBatches(username, trackIds).then(foundTracks => {
+  const date = new Date().toISOString();
   console.log(`\nTotal amount of leaderboard spots for ${username}:`, foundTracks.length);
-  writeToJsonFile('out/tracks.json', { username, date: new Date().toISOString(), tracks: foundTracks });
+  writeToJsonFile('out/tracks.json', { username, date, tracks: foundTracks });
+
+  // Filtering
   if (!(Number.isNaN(minPlays) && Number.isNaN(maxPlacement))) {
     let filteredTracks = foundTracks;
     if (!Number.isNaN(minPlays)) {
@@ -126,7 +129,7 @@ fetchInBatches(username, trackIds).then(foundTracks => {
     if (!Number.isNaN(maxPlacement)) {
       filteredTracks = filteredTracks.filter(track => track.placement <= maxPlacement);
     }
-    console.log(`\nFiltered amount of leaderboard spots for ${username}:`, foundTracks.length);
-    writeToJsonFile('out/filteredTracks.json', { username, date: new Date().toISOString(), tracks: filteredTracks });
+    console.log(`\nFiltered amount of leaderboard spots for ${username}:`, filteredTracks.length);
+    writeToJsonFile('out/filteredTracks.json', { username, date, tracks: filteredTracks });
   }
 });

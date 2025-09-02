@@ -5,9 +5,10 @@
   "license": "ISC",
   "author": "me",
   "type": "commonjs",
-  "main": "tracks.js",
+  "main": "src/tracks.js",
   "scripts": {
-    "tracks": "node tracks.js"
+    "tracks": "node src/tracks.js",
+    "filter": "node src/filter.js"
   },
   "dependencies": {
     "cli-progress": "^3.12.0",
