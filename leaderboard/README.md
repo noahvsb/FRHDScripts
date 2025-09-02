@@ -42,6 +42,8 @@ npm run leaderboard <username> <minPlays (optional)> <maxPlacement (optional)>
 
 Note: if you want to use `maxPlacement`, but not `minPlays`, just make `minPlays` 0
 
+Note: this can easily take over an hour, since there are almost 1 000 000 tracks.
+
 ### filter
 
 Filters tracks from a json file and stores the result into `out/filteredTracks.json`, that way you don't need to generate everything again to filter each time.
@@ -61,6 +63,7 @@ Note: all arguments are optional, but having no option is just a waste of time a
 Note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
 
 Note: before pulling again from this repository, make sure to backup your `tracks.json` somewher, cuz it gets overwritten by the dummy file 😭.
+
 
 
 
