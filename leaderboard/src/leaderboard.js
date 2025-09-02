@@ -101,7 +101,7 @@ const username = process.argv[2];
 const minPlays = Number(process.argv[3] ?? NaN);
 const maxPlacement = Number(process.argv[4] ?? NaN);
 if (!username) {
-  console.error("Usage: npm run tracks <username> <minPlays (optional)> <maxPlacement (optional)>");
+  console.error("Usage: npm run leaderboard <username> <minPlays (optional)> <maxPlacement (optional)>");
   process.exit(1);
 }
 if (!Number.isNaN(minPlays) && (!Number.isInteger(minPlays) || minPlays < 0)) {
@@ -113,7 +113,7 @@ if (!Number.isNaN(maxPlacement) && (!Number.isInteger(maxPlacement) || maxPlacem
   process.exit(1);
 }
 
-const trackIds = [...rangeArray(1001, 11106), /*...rangeArray(50001, 1010000)*/];
+const trackIds = [...rangeArray(1001, 11106), ...rangeArray(50001, 1010000)];
 
 fetchInBatches(username, trackIds).then(foundTracks => {
   const date = new Date().toISOString();

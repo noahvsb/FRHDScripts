@@ -5,9 +5,9 @@
   "license": "ISC",
   "author": "me",
   "type": "commonjs",
-  "main": "src/tracks.js",
+  "main": "src/leaderboard.js",
   "scripts": {
-    "tracks": "node src/tracks.js",
+    "leaderboard": "node src/leaderboard.js",
     "filter": "node src/filter.js"
   },
   "dependencies": {
