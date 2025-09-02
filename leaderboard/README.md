@@ -7,7 +7,7 @@ This folder contains scripts that can be used to generate and filter a json of a
 Clone the whole git repository (you might need to install git)
 
 ```sh
-git clone url
+git clone https://github.com/noahvsb/FRHDScripts.git
 ```
 
 Go to this folder
@@ -57,4 +57,5 @@ npm run filter <minPlays (optional)> <maxPlacement (optional)> <jsonPath (option
 note: all arguments are optional, but having no option is just a waste of time and energy.
 
 note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
+
 
