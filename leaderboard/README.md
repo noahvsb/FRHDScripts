@@ -34,7 +34,7 @@ Generates the leaderboard spots for a user and stores the result into `out/track
 npm run leaderboard <username> <minPlays (optional)> <maxPlacement (optional)>
 ```
 
-`username`: the user for which the leaderboard spots are generated.
+`username`: the user for which the leaderboard spots are generated. (caps insensitive)
 
 `minPlays`: used to filter the tracks on a minimum amount of plays. (must be a positive integer)
 
@@ -63,6 +63,7 @@ Note: all arguments are optional, but having no option is just a waste of time a
 Note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
 
 Note: before pulling again from this repository, make sure to backup your `tracks.json` somewher, cuz it gets overwritten by the dummy file 😭.
+
 
 
 
