@@ -5,11 +5,12 @@
   "license": "ISC",
   "author": "me",
   "type": "commonjs",
-  "main": "leaderboard/tracks.js",
+  "main": "tracks.js",
   "scripts": {
-    "run": "node leaderboard/tracks.js"
+    "tracks": "node tracks.js"
   },
   "dependencies": {
-    "cli-progress": "^3.12.0"
+    "cli-progress": "^3.12.0",
+    "fs": "^0.0.1-security"
   }
 }
