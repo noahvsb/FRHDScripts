@@ -15,7 +15,7 @@ git clone https://github.com/noahvsb/FRHDScripts.git
 Go to this folder
 
 ```sh
-cd leaderboard
+cd FRHDScripts/leaderboard
 ```
 
 Install necessary packages (you might need to install [npm](https://nodejs.org/en/download/))
@@ -61,6 +61,7 @@ Note: all arguments are optional, but having no option is just a waste of time a
 Note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
 
 Note: before pulling again from this repository, make sure to backup your `tracks.json` somewher, cuz it gets overwritten by the dummy file 😭.
+
 
 
 
