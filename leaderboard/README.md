@@ -56,10 +56,11 @@ npm run filter <minPlays (optional)> <maxPlacement (optional)> <jsonPath (option
 
 `jsonPath`: path of the `tracks.json` file. You won't need to use this normally since it defaults to `out/tracks.json`, unless you changed the path of your `tracks.json`
 
-note: all arguments are optional, but having no option is just a waste of time and energy.
+Note: all arguments are optional, but having no option is just a waste of time and energy.
 
-note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
+Note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
 
+Note: before pulling again from this repository, make sure to backup your `tracks.json` somewher, cuz it gets overwritten by the dummy file 😭.
 
 
 
