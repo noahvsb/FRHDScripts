@@ -8,28 +8,45 @@ function rangeArray(start, end) {
   return arr;
 }
 
+// Used to parse like 37.6k or 1.2m
+function parsePlays(plays) {
+  const num = parseFloat(plays);
+  if (plays.endsWith('k')) {
+    return num * 1_000;
+  } else if (plays.endsWith('m')) {
+    return num * 1_000_000;
+  } else {
+    return num;
+  }
+}
+
 // Fetch leaderboard for a single track and check for user
 async function fetchLeaderboard(user, t_id) {
   try {
-    const response = await fetch("https://www.freeriderhd.com/track_api/load_leaderboard", {
+    const leaderboardResponse = await fetch("https://www.freeriderhd.com/track_api/load_leaderboard", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: `t_id=${t_id}`
     });
-    const data = await response.json();
+    const leaderboardData = await leaderboardResponse.json();
 
-    if (!data.result) {
-      console.error(`No result for ${t_id}:`, data.msg);
+    if (!leaderboardData.result) {
+      console.error(`No result for ${t_id}:`, leaderboardData.msg);
       return null;
     }
 
-    // Look through track_leaderboard for the user
-    for (const entry of (data.track_leaderboard || [])) {
-      // Some entries may not have a user object
+    // Check if user is in the leaderboard and provide a bit more data if so 
+    for (const entry of (leaderboardData.track_leaderboard || [])) {
       if (entry.user && entry.user.u_name && entry.user.u_name.toLowerCase() === user.toLowerCase()) {
-        return { t_id, placement: entry.place }; // Return track ID + placement
+        const response = await fetch(`http://frhd.co/t/${t_id}?ajax=true`);
+        if (!response.ok) {
+          console.error(`Error fetching extra track data ${t_id}:`, response.statusText);
+        }
+        const data = await response.json();
+        const plays = data.track_stats.plays;
+        return { id: t_id, placement: entry.place, title: data.track.title, author: data.track.author, plays: parsePlays(plays), plays_str: plays };
       }
     }
   } catch (err) {
@@ -100,16 +117,16 @@ const trackIds = [...rangeArray(1001, 11106), /*...rangeArray(50001, 1010000)*/]
 
 fetchInBatches(username, trackIds).then(foundTracks => {
   console.log(`\nTotal amount of leaderboard spots for ${username}:`, foundTracks.length);
-  writeToJsonFile('out/tracks.json', { username, tracks: foundTracks });
+  writeToJsonFile('out/tracks.json', { username, date: new Date().toISOString(), tracks: foundTracks });
   if (!(Number.isNaN(minPlays) && Number.isNaN(maxPlacement))) {
     let filteredTracks = foundTracks;
     if (!Number.isNaN(minPlays)) {
-      // TODO: implement when track object has a plays property
+      filteredTracks = filteredTracks.filter(track => track.plays >= minPlays);
     }
     if (!Number.isNaN(maxPlacement)) {
       filteredTracks = filteredTracks.filter(track => track.placement <= maxPlacement);
     }
     console.log(`\nFiltered amount of leaderboard spots for ${username}:`, foundTracks.length);
-    writeToJsonFile('out/filteredTracks.json', { username, tracks: filteredTracks });
+    writeToJsonFile('out/filteredTracks.json', { username, date: new Date().toISOString(), tracks: filteredTracks });
   }
 });
