@@ -11,13 +11,9 @@ function rangeArray(start, end) {
 // Used to parse like 37.6k or 1.2m
 function parsePlays(plays) {
   const num = parseFloat(plays);
-  if (plays.endsWith('k')) {
-    return num * 1_000;
-  } else if (plays.endsWith('m')) {
-    return num * 1_000_000;
-  } else {
-    return num;
-  }
+  if (num === plays) return num;
+  if (plays.endsWith('k')) return num * 1_000;
+  return num * 1_000_000;
 }
 
 // Fetch leaderboard for a single track and check for user
@@ -46,7 +42,7 @@ async function fetchLeaderboard(user, t_id) {
         }
         const data = await response.json();
         const plays = data.track_stats.plays;
-        return { id: t_id, placement: entry.place, title: data.track.title, author: data.track.author, plays: parsePlays(plays), plays_str: plays };
+        return { id: t_id, placement: entry.place, title: data.track.title, author: data.track.author, plays: parsePlays(plays), plays_str: plays.toString() };
       }
     }
   } catch (err) {
