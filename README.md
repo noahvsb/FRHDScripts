@@ -6,6 +6,6 @@ This repistory contains a few scripts/tools that can be used in the hit game [fr
 
 These are some track generating scripts.
 
-## [ghosts](ghostsREADME.md)
+## [ghosts](ghosts/README.md)
 
 These contain scripts related to ghosts. A ghost is the "replay" of a users time on a certain track.
