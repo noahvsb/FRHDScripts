@@ -1,10 +1,11 @@
-# leaderboard
+# ghosts
 
-This folder contains scripts that can be used to generate and filter a json of all leaderboard spots of a user.
+This folder contains scripts related to ghosts. A ghost is the "replay" of a users time on a certain track.
 
 ## Install
 
-Go into a terminal, like Command Prompt, Powershell or Git Bash.
+Go into a terminal.
+For windows this includes apps like Command Prompt, Powershell or Git Bash. (I only explained for windows, because on average these are less techy people, linux and mac trek uw plan. Honestly some linux distros like mint cinnamon are easier to work with than windows and free, I have no idea why people who don't game still use windows.)
 
 Clone the whole git repository (you might need to install [git](https://git-scm.com/downloads))
 
@@ -15,7 +16,7 @@ git clone https://github.com/noahvsb/FRHDScripts.git
 Go to this folder
 
 ```sh
-cd FRHDScripts/leaderboard
+cd FRHDScripts/ghosts
 ```
 
 Install necessary packages (you might need to install [npm](https://nodejs.org/en/download/))
@@ -28,7 +29,7 @@ npm install
 
 ### leaderboard
 
-Generates the leaderboard spots for a user and stores the result into `out/tracks.json` and `out/filteredTracks.json`.
+Generates the leaderboard spots for a user and stores all results into `out/tracks.json` and the filtered ones into `out/filteredTracks.json`.
 
 ```sh
 npm run leaderboard <username> <minPlays (optional)> <maxPlacement (optional)>
@@ -46,7 +47,7 @@ Note: this can easily take over an hour, since there are almost 1 000 000 tracks
 
 ### filter
 
-Filters tracks from a json file and stores the result into `out/filteredTracks.json`, that way you don't need to generate everything again to filter each time.
+Filters tracks from a json file and stores the filtered results into `out/filteredTracks.json`.
 
 ```sh
 npm run filter <minPlays (optional)> <maxPlacement (optional)> <jsonPath (optional)>
@@ -62,12 +63,29 @@ Note: all arguments are optional, but having no option is just a waste of time a
 
 Note: if you only wish to use one of the latter arguments, set `minPlays` to 0 and or `maxPlacement` to 10.
 
-Note: before pulling again from this repository, make sure to backup your `tracks.json` somewher, cuz it gets overwritten by the dummy file 😭.
+### racetimes
 
+Fetch the racetimes of a few users on a track.
 
+```sh
+npm run racetimes
+```
 
+Note that you don't have to add arguments, this is because you need to change the context file `context/racetimes.json`:
 
+```json
+{
+  "t_id": 985096,
+  "users": ["Protvod", "FieryBowser", "deadrising2"]
+}
+```
 
+On windows, you can edit the file through the terminal by using this notepad command:
 
+```sh
+notepad context/racetimes.json
+```
+
+On linux and mac, you know what to do.
 
 

@@ -1,5 +1,5 @@
-const cliProgress = require('cli-progress');
-const fs = require('fs');
+import { SingleBar } from 'cli-progress';
+import { writeToJsonFile } from './util.js';
 
 // Generate array of track IDs
 function rangeArray(start, end) {
@@ -56,7 +56,7 @@ async function fetchInBatches(user, ids, batchSize = 50) {
   const foundTracks = [];
 
   // Create new progress bar
-  const progressBar = new cliProgress.SingleBar({
+  const progressBar = new SingleBar({
     format: 'Fetching data |{bar}| {percentage}% | {value}/{total} tracks',
     barCompleteChar: '\u2588',
     barIncompleteChar: '\u2591',
@@ -79,19 +79,6 @@ async function fetchInBatches(user, ids, batchSize = 50) {
   return foundTracks;
 }
 
-function writeToJsonFile(filePath, data, pretty = true) {
-  try {
-    const jsonData = pretty 
-      ? JSON.stringify(data, null, 2) 
-      : JSON.stringify(data);
-
-    fs.writeFileSync(filePath, jsonData, 'utf8');
-    console.log(`Data successfully written to ${filePath}`);
-  } catch (err) {
-    console.error(`Error writing file ${filePath}:`, err);
-  }
-}
-
 // Argument handling
 const username = process.argv[2];
 const minPlays = Number(process.argv[3] ?? NaN);
@@ -109,7 +96,7 @@ if (!Number.isNaN(maxPlacement) && (!Number.isInteger(maxPlacement) || maxPlacem
   process.exit(1);
 }
 
-const trackIds = [...rangeArray(1001, 11106), ...rangeArray(50001, 1010000)];
+const trackIds = [...rangeArray(1001, 11106), ...rangeArray(50001, 1100000)];
 
 fetchInBatches(username, trackIds).then(foundTracks => {
   const date = new Date().toISOString();

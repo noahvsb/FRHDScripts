@@ -4,11 +4,12 @@
   "description": "leaderboard scripts",
   "license": "ISC",
   "author": "me",
-  "type": "commonjs",
+  "type": "module",
   "main": "src/leaderboard.js",
   "scripts": {
     "leaderboard": "node src/leaderboard.js",
-    "filter": "node src/filter.js"
+    "filter": "node src/filter.js",
+    "racetimes": "node src/racetimes.js"
   },
   "dependencies": {
     "cli-progress": "^3.12.0",

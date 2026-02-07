@@ -1,17 +1,5 @@
-const fs = require('fs');
-
-function writeToJsonFile(filePath, data, pretty = true) {
-  try {
-    const jsonData = pretty 
-      ? JSON.stringify(data, null, 2) 
-      : JSON.stringify(data);
-
-    fs.writeFileSync(filePath, jsonData, 'utf8');
-    console.log(`Data successfully written to ${filePath}`);
-  } catch (err) {
-    console.error(`Error writing file ${filePath}:`, err);
-  }
-}
+import { readFileSync } from 'fs';
+import { writeToJsonFile } from './util.js';
 
 // Argument handling
 const minPlays = Number(process.argv[2] ?? NaN);
@@ -29,7 +17,7 @@ if (!Number.isNaN(maxPlacement) && (!Number.isInteger(maxPlacement) || maxPlacem
 // Reading and parsing JSON
 let tracksJSON;
 try {
-  const rawData = fs.readFileSync(jsonPath, 'utf-8');
+  const rawData = readFileSync(jsonPath, 'utf-8');
   tracksJSON = JSON.parse(rawData);
 } catch (err) {
   console.error(`Error reading or parsing ${jsonPath}:`, err);
