@@ -48,7 +48,47 @@ async function fetchRaceTimes() {
   });
 
   // print results
-  console.log(results);
+  printResults(results);
 }
+
+function printResults(results) {
+  function parseTime(t) {
+    if (t === 'DNG') return Infinity;
+    const [m, s] = t.split(':');
+    return parseInt(m, 10) * 60 + parseFloat(s);
+  }
+
+  // sort
+  const sorted = [...results].sort((a, b) => {
+    const ta = parseTime(a.run_time);
+    const tb = parseTime(b.run_time);
+    if (ta !== tb) return ta - tb;
+    return a.user.localeCompare(b.user);
+  });
+
+  // column widths
+  const nameWidth = Math.max(...sorted.map(r => r.user.length));
+  const placeWidth = String(sorted.length).length;
+  const timeWidth = Math.max(...sorted.map(r => r.run_time.length));
+
+  let lastTime = null;
+  let placement = 0;
+
+  sorted.forEach((r, index) => {
+    const t = parseTime(r.run_time);
+
+    if (t !== lastTime) {
+      placement = index + 1;
+      lastTime = t;
+    }
+
+    const placeStr = String(placement).padStart(placeWidth);
+    const nameStr = r.user.padEnd(nameWidth);
+    const timeStr = r.run_time.padEnd(timeWidth);
+
+    console.log(`${placeStr}. ${nameStr}  ${timeStr}`);
+  });
+}
+
 
 fetchRaceTimes().catch(console.error);
